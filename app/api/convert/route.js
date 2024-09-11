@@ -5,13 +5,13 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   try {
     // Extract data from the request body
-    const { htmlCssCode, language } = await request.json();
+    const { htmlCode, cssCode, language } = await request.json();
 
     // Validate input
-    if (!htmlCssCode || !language) {
-      console.error('Invalid input:', { htmlCssCode, language });
+    if (!htmlCode || !cssCode || !language) {
+      console.error('Invalid input:', { htmlCode, cssCode, language });
       return NextResponse.json(
-        { error: 'Invalid input: missing htmlCssCode or language' },
+        { error: 'Invalid input: missing htmlCode, cssCode, or language' },
         { status: 400 }
       );
     }
@@ -26,7 +26,7 @@ export async function POST(request) {
         {
           parts: [
             {
-              text: `Convert the following HTML and CSS into ${language} with Tailwind: ${htmlCssCode}`,
+              text: `Convert the following HTML and CSS into ${language} with Tailwind: ${htmlCode} ${cssCode}`,
             },
           ],
         },
@@ -44,7 +44,7 @@ export async function POST(request) {
           {
             parts: [
               {
-                text: `Convert the following HTML and CSS into ${language} with Tailwind: ${htmlCssCode}`,
+                text: `Convert the following HTML and CSS into ${language} with Tailwind: ${htmlCode} ${cssCode}`,
               },
             ],
           },
